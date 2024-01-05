@@ -1,8 +1,9 @@
 const boxes = document.querySelectorAll(".box");
-var playerTurn, moves, restartGame;
+var playerTurn, moves, restartGame, isGameOver;
 playerTurn = "x";
 moves = 0;
-restartGame = "<button>Restart</button>";
+restartGame = "<button onclick = 'location.reload()'>Restart</button>";
+isGameOver = false;
 
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
@@ -27,7 +28,7 @@ boxes.forEach((box) => {
           var gameAlert =
             "GameOver <br> Player " +
             boxes[a].dataset.player.toUpperCase() +
-            " Win<br><br>" +
+            " Win!!!<br><br>" +
             restartGame;
           var div = document.createElement("div");
           div.className = "gameOver";
@@ -47,7 +48,14 @@ boxes.forEach((box) => {
     checkWinner(0, 4, 8);
     checkWinner(2, 4, 6);
     if (moves == 9) {
-      const draw = () => {};
+      const draw = () => {
+        var matchDraw = "Match Draw !! <br><br>" + restartGame;
+        var div = document.createElement("div");
+        div.innerHTML = matchDraw;
+        div.className = "gameOver";
+        document.body.append(div);
+      };
+      draw();
     }
   });
 });
